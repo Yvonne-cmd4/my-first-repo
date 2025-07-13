@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Ticket</title>
+    <link rel="stylesheet" href="{% static 'css/technician_edit_ticket.css' %}">
+</head>
+<body>
+    <div class="outer-wrapper">
+        <div class="dashboard-container">
+            <h2>Edit Ticket: {{ ticket.title }}</h2>
+
+            <!-- Client Details Section (Not Editable) -->
+            <div class="client-details">
+                <h3>📋 Client Details</h3>
+                <p><strong>Name:</strong> {{ ticket.created_by.username }}</p>
+                <p><strong>Email:</strong> {{ ticket.created_by.email }}</p>
+                <p><strong>Contact:</strong> {{ ticket.client_contact }}</p>
+                <p><strong>Location:</strong> {{ ticket.location }}</p>
+                <p><strong>Connection Type:</strong> {{ ticket.connection_type }}</p>
+                <p><strong>Account Number:</strong> {{ ticket.account_number }}</p>
+            </div>
+
+            <div class="issue-details" style="margin-top: 25px;">
+                <h3>📝 Issue Description</h3>
+                <p>{{ ticket.description }}</p>
+            </div>
+
+            <!-- Editable Form -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">✅ Save Changes</button>
+            </form>
+
+            <a href="{% url 'dashboard' %}">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

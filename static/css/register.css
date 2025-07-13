@@ -1,0 +1,119 @@
+/* Base Layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d2b1e;
+    color: #ffffff;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Page Heading */
+h2 {
+    color: #cce6d4;
+    font-size: 26px;
+    margin-bottom: 24px;
+}
+
+/* Error List */
+ul {
+    list-style-type: none;
+    padding: 0;
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500x;
+}
+
+/* Form Container */
+form {
+    background-color: #1e402d;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 1px solid #3d6650;
+}
+
+/* Labels inside as_p */
+form p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #e6fff0;
+    margin-bottom: 4px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #8bb89f;
+    border-radius: 6px;
+    background-color: #f0fdf6;
+    font-size: 14px;
+    color: #2c3e50;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4c7a62;
+    box-shadow: 0 0 6px #4c7a62;
+}
+
+/* Submit Button */
+button {
+    background-color: #2f5d46;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #4c7a62;
+    transform: translateY(-2px);
+}
+
+/* Link */
+a {
+    color: #90ee90;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Bottom Message */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}

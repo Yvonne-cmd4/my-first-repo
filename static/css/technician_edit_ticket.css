@@ -1,0 +1,194 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #102338;
+    color: #ffffff;
+}
+
+/* Center Wrapper */
+.outer-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+/* Unified Dashboard Container */
+.dashboard-box, .dashboard-container {
+    background-color: #1e2f4d;
+    color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Header Bar */
+.dashboard-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-header-bar h1 {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background-color: #d63030;
+}
+
+/* Divider Line */
+.divider {
+    margin: 20px 0;
+    border: 1px solid #ccc;
+}
+
+/* Welcome Section */
+.welcome-box {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.welcome-box h2 {
+    font-size: 22px;
+    color: #a3c9ff;
+    margin-bottom: 8px;
+}
+
+/* Ticket Section Headings */
+.tickets-section h3,
+.client-details h3 {
+    font-size: 20px;
+    color: #7fbfff;
+    margin-bottom: 10px;
+}
+
+/* Ticket Table */
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f0f8ff;
+    border-radius: 6px;
+    overflow: hidden;
+    color: #000;
+}
+
+.ticket-table th, .ticket-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.ticket-table th {
+    background-color: #dbeeff;
+    color: #003366;
+}
+
+.ticket-table tr:nth-child(even) {
+    background-color: #eef7ff;
+}
+
+.edit-link {
+    color: #0066cc;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #dbe9ff;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    padding: 10px;
+    border: 1px solid #4682b4;
+    border-radius: 5px;
+    background-color: #f0f4ff;
+    color: #222;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0010f7;
+}
+
+/* Back Link */
+a {
+    margin-top: 20px;
+    display: inline-block;
+    color: #7fbfff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Client Details Box */
+.client-details {
+    background-color: #263f5d;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: #e0eaff;
+}

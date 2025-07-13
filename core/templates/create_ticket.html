@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Ticket</title>
+    <link rel="stylesheet" href="{% static 'css/create_ticket.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Submit New Ticket</h2>
+
+        {% if form.errors %}
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create Ticket</button>
+        </form>
+
+        <p><a href="{% url 'client_dashboard' %}">← Back to Dashboard</a></p>
+    </div>
+</body>
+</html>

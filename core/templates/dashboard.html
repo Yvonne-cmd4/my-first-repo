@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Ticketing Dashboard</h1>
+            <p>Welcome <strong>{{ user.username }}</strong> ({{ user.role }})</p>
+            <a class="logout-btn" href="{% url 'logout' %}">Logout</a>
+        </header>
+        <hr>
+
+        {% if user.role == 'Client' %}
+            <div class="client-actions">
+                <a class="submit-btn" href="{% url 'create_ticket' %}">➕ Submit New Ticket</a>
+                <h2>Your Tickets</h2>
+                <table class="ticket-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Comment</th>
+                            <th>Solved By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td>{{ ticket.title }}</td>
+                                <td>{{ ticket.category }}</td>
+                                <td>{{ ticket.status }}</td>
+                                <td>{{ ticket.comments|default:"-" }}</td>
+                                <td>{{ ticket.solved_by|default:"-" }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr><td colspan="5">No tickets available.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% elif user.role == 'Technician' %}
+            <div class="technician-view">
+                <h2>Your Assigned Tickets</h2>
+                <table class="ticket-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td>{{ ticket.title }}</td>
+                                <td>{{ ticket.status }}</td>
+                                <td><a href="{% url 'technician_ticket_edit' ticket.id %}">Edit</a></td>
+                            </tr>
+                        {% empty %}
+                            <tr><td colspan="3">No tickets assigned to you.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% elif user.is_superuser or user.role == 'Admin' %}
+        <div class="admin-section">
+            <h2>🛠️ Admin Panel</h2>
+
+            <!-- 🔓 Open Tickets -->
+            <h3>🟢 Open Tickets (Unassigned)</h3>
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Assign To</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in open_tickets %}
+                    <tr>
+                        <td>{{ ticket.title }}</td>
+                        <td>{{ ticket.status }}</td>
+                        <td>
+                            <form method="post" action="{% url 'assign_ticket' ticket.id %}">
+                                {% csrf_token %}
+                                <select name="technician_id" required>
+                                    {% for tech in technicians %}
+                                        <option value="{{ tech.id }}">{{ tech.username }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit">Assign</button>
+                            </form>
+                        </td>
+                        <td><a href="{% url 'edit_ticket' ticket.id %}">Edit</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No open tickets.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- 🟡 In Progress Tickets -->
+            <h3>🟡 In Progress Tickets</h3>
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Technician</th>
+                        <th>Status</th>
+                        <th>Re-Allocate</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in in_progress_tickets %}
+                    <tr>
+                        <td>{{ ticket.title }}</td>
+                        <td>{{ ticket.assigned_to.username }}</td>
+                        <td>{{ ticket.status }}</td>
+                        <td>
+                            <form method="post" action="{% url 'reassign_ticket' ticket.id %}">
+                                {% csrf_token %}
+                                <select name="technician_id" required>
+                                    {% for tech in technicians %}
+                                        <option value="{{ tech.id }}">{{ tech.username }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit">Re-Assign</button>
+                            </form>
+                        </td>
+                        <td><a href="{% url 'edit_ticket' ticket.id %}">Edit</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5">No tickets in progress.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- 🔴 Closed Tickets -->
+            <h3>🔴 Closed Tickets</h3>
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Solved By</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticket in closed_tickets %}
+                    <tr>
+                        <td>{{ ticket.title }}</td>
+                        <td>{{ ticket.solved_by|default:"-" }}</td>
+                        <td>{{ ticket.status }}</td>
+                        <td><a href="{% url 'edit_ticket' ticket.id %}">Edit</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="4">No closed tickets.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
